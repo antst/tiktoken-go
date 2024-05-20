@@ -1,4 +1,4 @@
-module github.com/pkoukk/tiktoken-go
+module github.com/kingfer30/tiktoken-go
 
 go 1.19
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pkoukk/tiktoken-go"
+	"github.com/kingfer30/tiktoken-go"
 )
 
 func BenchmarkEncodingInFullLanguage(b *testing.B) {
