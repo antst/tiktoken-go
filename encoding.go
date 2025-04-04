@@ -125,7 +125,7 @@ func initEncoding(encodingName string) (*Encoding, error) {
 }
 
 func o200k_base() (*Encoding, error) {
-	ranks, err := bpeLoader.LoadTiktokenBpe("blob/o200k_base.tiktoken")
+	ranks, err := bpeLoader.LoadTiktokenBpe("o200k_base.tiktoken")
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func o200k_base() (*Encoding, error) {
 }
 
 func cl100k_base() (*Encoding, error) {
-	ranks, err := bpeLoader.LoadTiktokenBpe("blob/cl100k_base.tiktoken")
+	ranks, err := bpeLoader.LoadTiktokenBpe("cl100k_base.tiktoken")
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func cl100k_base() (*Encoding, error) {
 }
 
 func p50k_edit() (*Encoding, error) {
-	ranks, err := bpeLoader.LoadTiktokenBpe("blob/p50k_base.tiktoken")
+	ranks, err := bpeLoader.LoadTiktokenBpe("p50k_base.tiktoken")
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +186,7 @@ func p50k_edit() (*Encoding, error) {
 }
 
 func p50k_base() (*Encoding, error) {
-	ranks, err := bpeLoader.LoadTiktokenBpe("blob/p50k_base.tiktoken")
+	ranks, err := bpeLoader.LoadTiktokenBpe("p50k_base.tiktoken")
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +209,7 @@ func p50k_base() (*Encoding, error) {
 }
 
 func r50k_base() (*Encoding, error) {
-	ranks, err := bpeLoader.LoadTiktokenBpe("blob/r50k_base.tiktoken")
+	ranks, err := bpeLoader.LoadTiktokenBpe("r50k_base.tiktoken")
 	if err != nil {
 		return nil, err
 	}

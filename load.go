@@ -2,6 +2,7 @@ package tiktoken
 
 import (
 	"crypto/sha1"
+	"embed"
 	"encoding/base64"
 	"fmt"
 	"io/ioutil"
@@ -14,18 +15,16 @@ import (
 	"github.com/google/uuid"
 )
 
+//go:embed blob/*
+var blobFS embed.FS // 使用 embed.FS 类型
+
 type BpeLoader interface {
 	LoadTiktokenBpe(tiktokenBpeFile string) (map[string]int, error)
 }
 
 func readFile(blobpath string) ([]byte, error) {
 	if !strings.HasPrefix(blobpath, "http://") && !strings.HasPrefix(blobpath, "https://") {
-		file, err := os.Open(blobpath)
-		if err != nil {
-			return nil, err
-		}
-		defer file.Close()
-		return ioutil.ReadAll(file)
+		return blobFS.ReadFile("blob/" + blobpath)
 	}
 	// avoiding blobfile for public files helps avoid auth issues, like MFA prompts
 	resp, err := http.Get(blobpath)
