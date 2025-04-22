@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"sync"
 
 	"github.com/dlclark/regexp2"
 )
 
 var bpeLoader BpeLoader = NewDefaultBpeLoader()
+var coreBpeCache = make(map[string]*CoreBPE)
+var coreBpeMutex = &sync.Mutex{}
 
 func SetBpeLoader(loader BpeLoader) {
 	bpeLoader = loader
@@ -19,9 +22,18 @@ func GetEncoding(encodingName string) (*Tiktoken, error) {
 	if err != nil {
 		return nil, err
 	}
-	pbe, err := NewCoreBPE(enc.MergeableRanks, enc.SpecialTokens, enc.PatStr)
-	if err != nil {
-		return nil, err
+	// 通过encodingName缓存CoreBPE
+	coreBpeMutex.Lock()
+	defer coreBpeMutex.Unlock()
+	var pbe *CoreBPE
+	if bpe, ok := coreBpeCache[encodingName]; ok {
+		pbe = bpe
+	} else {
+		pbe, err = NewCoreBPE(enc.MergeableRanks, enc.SpecialTokens, enc.PatStr)
+		if err != nil {
+			return nil, err
+		}
+		coreBpeCache[encodingName] = pbe
 	}
 	specialTokensSet := map[string]any{}
 	for k := range enc.SpecialTokens {
