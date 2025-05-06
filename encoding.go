@@ -22,6 +22,8 @@ const (
 
 var MODEL_TO_ENCODING = map[string]string{
 	// chat
+	"o3":            MODEL_O200K_BASE,
+	"o1":            MODEL_O200K_BASE,
 	"gpt-4o":        MODEL_O200K_BASE,
 	"gpt-4":         MODEL_CL100K_BASE,
 	"gpt-3.5-turbo": MODEL_CL100K_BASE,
@@ -73,6 +75,9 @@ var MODEL_TO_ENCODING = map[string]string{
 
 var MODEL_PREFIX_TO_ENCODING = map[string]string{
 	// chat
+	"o3-":            MODEL_O200K_BASE,  // e.g., o3-mini
+	"o1-":            MODEL_O200K_BASE,  // e.g., o1-2024-12-17, etc.
+	"gpt-4o-":        MODEL_O200K_BASE,  // e.g., gpt-4o-2024-05-13, etc.
 	"gpt-4-":         MODEL_CL100K_BASE, // e.g., gpt-4-0314, etc., plus gpt-4-32k
 	"gpt-3.5-turbo-": MODEL_CL100K_BASE, // e.g, gpt-3.5-turbo-0301, -0401, etc.
 }
