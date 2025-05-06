@@ -78,11 +78,11 @@ var MODEL_PREFIX_TO_ENCODING = map[string]string{
 }
 
 var encodingMap map[string]*Encoding
-var l *sync.Mutex
+var l *sync.RWMutex
 
 func init() {
 	encodingMap = make(map[string]*Encoding)
-	l = &sync.Mutex{}
+	l = &sync.RWMutex{}
 }
 
 type Encoding struct {
@@ -94,11 +94,15 @@ type Encoding struct {
 }
 
 func getEncoding(encodingName string) (*Encoding, error) {
-	l.Lock()
-	defer l.Unlock()
-	if encoding, ok := encodingMap[encodingName]; ok {
+	l.RLock()
+	encoding, ok := encodingMap[encodingName]
+	l.RUnlock()
+	if ok {
 		return encoding, nil
 	}
+
+	l.Lock()
+	defer l.Unlock()
 	initEncoding, err := initEncoding(encodingName)
 	if err != nil {
 		return nil, err
